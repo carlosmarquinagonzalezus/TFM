@@ -1,1 +1,4 @@
 __pycache__/
+*.png # Image files generated during processing
+*.csv # .csv files generated during data processing
+*.sv # .sv files generated during data processing

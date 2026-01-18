@@ -11,7 +11,7 @@ from scipy.signal import sosfreqz
 class FilterGUI:
     def __init__(self, root):
         self.root = root
-        root.title("Digital Filter Designer (MATLAB-like)")
+        root.title("Digital Filter Designer GUI")
         root.geometry("1200x850")
         root.configure(bg="#e8eef7")
 
@@ -63,6 +63,7 @@ class FilterGUI:
 
         self.module_entry = add_field("RTL Module Name")
         self.width_entry = add_field("Coefficient Bit Width")
+        self.frac_prec_entry = add_field("Fractional Precision (bits)")
 
         ttk.Button(control_frame, text="Generate RTL", command=self.generate_rtl).pack(pady=5, fill="x")
 
@@ -164,12 +165,13 @@ class FilterGUI:
 
         module = self.module_entry.get().strip()
         width = int(self.width_entry.get())
+        frac_prec = int(self.frac_prec_entry.get())
 
         # ⚠️ NOTE: still only first SOS (your original behavior)
         b = self.latest_sos[0][:3]
         a = self.latest_sos[0][3:]
 
-        rtl = rtl_gen.iir_gen(self.gen_filter_des(), module, b, a, width)
+        rtl = rtl_gen.iir_gen(self.gen_filter_des(), module, b, a, width, frac_prec)
 
         with open(f"{module}.sv", "w") as f:
             f.write(rtl)

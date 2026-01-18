@@ -1,5 +1,6 @@
 from scipy.signal import butter, cheby1, cheby2, ellip, sosfreqz
 import numpy as np
+from real2fix_point import real2fix_point
 
 # Calculates filter coefficients
 def calc_filter_coeffs(filter_order, filter_type, filter_wn, filter_response, filter_ripple, filter_att_stopband, fs):
